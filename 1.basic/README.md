@@ -220,4 +220,4 @@ The `lectures` collection stores all lectures. Each lecture contains a reference
 ```
 
 ## Elearning Portal Model
-![Elearning Portal Model](bootcamp-backend-student-mongodb-modelling/blob/main/1.basic/ELearningPortalModel.JPG)
+![Elearning Portal Model](ELearningPortalModel.JPG)
