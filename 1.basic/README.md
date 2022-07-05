@@ -218,3 +218,6 @@ The `lectures` collection stores all lectures. Each lecture contains a reference
     "publishedDate": ISODate ("2022-01-01")
 }
 ```
+
+## Elearning Portal Model
+![Elearning Portal Model](bootcamp-backend-student-mongodb-modelling/blob/main/1.basic/ELearningPortalModel.JPG)
