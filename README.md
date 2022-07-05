@@ -14,7 +14,7 @@ To take into consideration:
 
 
 ## Application Sitemap 
-![SiteMap](bootcamp-backend-student-mongodb-modelling/blob/main/sitemap.JPG)
+![SiteMap](sitemap.png)
 
 ## Workload
 * There is main page that shows the last five lectures published from each category (Front End, Backend, Devops), where we could delegate to cache the page into the web server.
@@ -33,10 +33,10 @@ Volume (size) data:
 
 
 * Write:
-  * It is expected to no upload more than one or two courses / lectures per day.
-  * It is expected that one author is created as maximum, once a day.
+  * It is not expected to upload more than one or two courses / lectures per day.
+  * It is expected that one author is created once a day as maximum.
 * Read:
-  * It is expected an extensive read load in main page and lectures.
+  * It is expected a read extensive workload in main page and lectures.
   * A similar webpage would be https://www.lemoncode.tv/
 
 ## What to deliver
