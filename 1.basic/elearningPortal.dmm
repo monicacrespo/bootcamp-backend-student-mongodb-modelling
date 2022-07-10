@@ -703,6 +703,20 @@
 					"list": false,
 					"enum": "",
 					"validate": ""
+				},
+				{
+					"id": "a6ab694e-907c-48bc-b9d6-7770d21c354a",
+					"name": "publishedDate",
+					"datatype": "date",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
 				}
 			],
 			"relations": [],
@@ -760,7 +774,7 @@
 		"def_collation": "",
 		"def_others": "",
 		"writeFileParam": false,
-		"lastSaved": "Sun Jul 10 2022 15:49:35 GMT+0100 (British Summer Time)"
+		"lastSaved": "Sun Jul 10 2022 17:56:06 GMT+0100 (British Summer Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -780,8 +794,8 @@
 					"referencedItemId": "d298247e-b931-4dfe-b31f-4e202d84004b",
 					"x": 558,
 					"y": 127,
-					"gHeight": 275,
-					"gWidth": 318,
+					"gHeight": 287,
+					"gWidth": 312,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": true,
@@ -868,7 +882,7 @@
 					"referencedItemId": "1f8e6b54-297e-4f40-b40d-8693eaae25ed",
 					"x": 45,
 					"y": 376,
-					"gHeight": 65,
+					"gHeight": 82,
 					"gWidth": 196,
 					"color": "#ffffff",
 					"background": "#8bc34a",
