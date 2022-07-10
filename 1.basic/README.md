@@ -18,7 +18,9 @@ Generate a model that reflects the following requeriments:
 ```
 
 The model has been implemented using Moon Modeler in the file elearningPortal.dmm. 
+
 `MongoDB collections` are used to store the data (represented in blue).
+
 `MongoDB documents` are objects that can be embedded in collections or other documents (represented in gree). A document is only a data description, no collection is created.
 
 Note that for easier understanding, in the examples I am representing the _id as a number, instead of a GUID.
@@ -69,12 +71,11 @@ Final model's collections and documents examples
    _id: "1",
    name: "Back End",
    courses: [
-                {"_id": 786, "name": "The Complete Developers Guide to MongoDB", "lastUpdated": ISODate ("2022-04-21")},
-                ...
-            ]
+    {"_id": 786, "name": "The Complete Developers Guide to MongoDB", "lastUpdated": ISODate ("2022-04-21")},
+    ...
+   ]
 }
 ```
-
 
 ```
 // Authors collection
@@ -96,7 +97,7 @@ Final model's collections and documents examples
 ```
 // Lectures document
 {
-   _id: 785,  
+   _id: 10,  
    name: "Core Fundamentals of MongoDB",
    video: objectId("111f1f17bcf86cf123456789"),
    article: objectId("222f1f17bcf86cf123456789"),  
@@ -106,21 +107,25 @@ Final model's collections and documents examples
    nameCourse: "The Complete Developers Guide to MongoDB"
 }
 ```
+
+```
 // LecturesSimplified document
 {
-   _id: 785,  
-   name: "Core Fundamentals of MongoDB"
+   _id: 10, 
+   name: "Core Fundamentals of MongoDB",
+   publishedDate: ISODate ("2022-04-20")
 }
 ```
 
 ```
 // CoursesSimplified document
 {
-   _id: "786", 
+   _id: "786",
    name: "The Complete Developers Guide to MongoDB",  
    lastUpdated: ISODate ("2022-04-21")
 }
 ```
+
 ```   
 // Courses collection
 {  
@@ -130,93 +135,92 @@ Final model's collections and documents examples
    lastUpdated: ISODate ("2022-04-21"),
    category: {"_id": "1", name: "Back End"}, 
    lecture: [
-    { "_id": "1", name: "Let's Start" }, 
-    { "_id": "2", name: "Core Fundamentals of MongoDB" },
+    { "_id": "1", name: "Let's Start", publishedDate: ISODate ("2022-04-01") }, 
+    ...
+    { "_id": "10", name: "Core Fundamentals of MongoDB", publishedDate: ISODate ("2022-04-20") },
     ...
    ],
    author: [
     { "_id": "1", name: "Braulio Díez" }, 
-    { "_id": "2", name: "Clara Ruiz" },
+    { "_id": "2", name: "Daniel Sánchez" },
     ...
    ]
 }
+```
 
 ![Elearning Portal Model](ELearningPortalModel.JPG)
 
 
 ### Embedded Document Pattern
+
 In this e-portal application there is one-to-many relationship between category and courses data, the category has multiple courses entities.
 
 In the normalized data model, the courses collections contain a reference to the category collection.
+
 ```
 // categories collection
 {
-   _id: "1",
+   _id: "1", 
    name: "Back End"
 }
+```
 
+```
 // courses collection
-{
-   category_id: "1", // reference to category document
+{  
    _id: "786", 
    name: "The Complete Developers Guide to MongoDB",
    description: "Who this course is for: MongoDB Developers or data scientists who are working on it or wanted to learn it.",
    lastUpdated: ISODate ("2022-04-21"),
+   category: {"_id": "1", name: "Back End"},
    lectures: [
-    { "_id": "1", categoryId: "1", name: "Let's Start", ... }, 
-    { "_id": "2", categoryId: "1", name: "Core Fundamentals of MongoDB", ... },
+    { "_id": "1", name: "Let's Start", publishedDate: ISODate ("2022-04-01") }, 
+    ...
+    { "_id": "10", name: "Core Fundamentals of MongoDB", publishedDate: ISODate ("2022-04-20")  ... },
     ...
    ]
 },
 {
-   category_id: "1", // reference to category document
    _id: "785", 
    name: "Complete NodeJS Developer in 2022 (GraphQL, MongoDB, + more)",
    description: "Learn from real NodeJS experts! Includes REALLY Advanced NodeJS, Express, GraphQL, REST, MongoDB, SQL, MERN + much more.",
-   lastUpdated: ISODate ("2022-04-20"),
-   lectures: [ { .. }, { .. }, ... ]
+   lastUpdated: ISODate ("2022-04-01"),
+   category: {"_id": "1", name: "Back End"},
+   lectures: [ { .. }, { .. }, ... ]  
 },
 ...
-{
-   category_id: "1", // reference to category document
+{  
    _id: "781", 
    name: "Java Programming Masterclass covering Java 11 & Java 17",
    description: "Learn Java In This Course And Become a Computer Programmer. Obtain valuable Core Java Skills And Java Certification.",
-   lastUpdated: ISODate ("2022-04-15"),
+   lastUpdated: ISODate ("2022-03-25"),
+   category: {"_id": "1", name: "Back End"},
    lectures: [ { .. }, { .. }, ... ]
 },
 ...
-{
-    category_id: "1", // reference to category document
+{  
    _id: "1", 
    name: "C# Basics for Beginners: Learn C# Fundamentals by Coding",
    description: "Master C# fundamentals in 6 hours - The most popular course with 50,000+ students, packed with tips and exercises.",
-   lastUpdated: ISODate ("2022-02-15"),
+   lastUpdated: ISODate ("2022-01-21"),
+   category: {"_id": "1", name: "Back End"},
    lectures: [ { .. }, { .. }, ... ]
 }
 ```
 
-Because the application frequently retrieves the courses data with the name (category) information, then it needs to issue multiple queries to resolve the references. A more optimal schema would be to embed the `courses` data entities in the `category` data. Applying also the `Extended ref pattern` to only access the course's data which is required by the application, as in the following `CategoriesSubset` document:
+Because the application frequently retrieves the courses data with the name (category) information, then it needs to issue multiple queries to resolve the references. A more optimal schema would be to embed the `courses` data entities in the `category` data. Applying also the `Extended ref pattern` to only access the course's data which is required by the application, in this model those fieds are `_id`, `name` and `LastUpdated` fields:
 
 ```
+\\ CategoriesSubset document
 {
    "_id": "1",
    "name": "Back End",
    "courses": [
-                {
-                    "_id": 786,  
-                    "name": "The Complete Developers Guide to MongoDB"
-                },
-                {
-                    "_id": 785,
-                    "name": "Complete NodeJS Developer in 2022 (GraphQL, MongoDB, + more)" 
-                },
-                ...
-                {
-                    "_id": 1, 
-                    "name": "C# Basics for Beginners: Learn C# Fundamentals by Coding"
-                }
-            ]
+     { "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") },
+     { "_id": 785, "name": "Complete NodeJS Developer in 2022 (GraphQL, MongoDB, + more)", lastUpdated: ISODate ("2022-04-01") },
+      ...
+     { "_id": 1, "name": "C# Basics for Beginners: Learn C# Fundamentals by Coding", lastUpdated: ISODate ("2022-01-21") }
+   ]
  }
 ```
 
@@ -235,17 +239,10 @@ The `categories` collection stores information on each category, including the c
    "_id": "1",
    "name": "Back End",
    "courses": [
-                {
-                    "_id": 786,
-                    "name": "The Complete Developers Guide to MongoDB"                   
-                }
-                ...
-                {
-                    "_id": 781,  
-                    "name": "Java Programming Masterclass covering Java 11 & Java 17"
-                    ...
-                }
-            ]
+     { "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") },
+     ...
+     { "_id": 781, "name": "Java Programming Masterclass covering Java 11 & Java 17", lastUpdated: ISODate ("2022-03-25") }               
+   ]
  }
 ```
 
@@ -283,11 +280,11 @@ In this e-portal application, the idea of an author exists, as does a lecture. T
 Lectures document
 ```
 {
-   _id: 785,  
+   _id: 10,  
    name: "Core Fundamentals of MongoDB"
    video: objectId("111f1f17bcf86cf123456789"),
    article: objectId("222f1f17bcf86cf123456789"),  
-   publishedDate: ISODate ("2022-02-15")
+   publishedDate: ISODate ("2022-04-20")
 }
 ```
 
@@ -308,11 +305,11 @@ The Extended Reference pattern provides a great way to handle these situations. 
 Lectures document
 ```
 {
-    _id: 785,  
-    name: "Core Fundamentals of MongoDB"
+    _id: 10,  
+    name: "Core Fundamentals of MongoDB",
    video: objectId("111f1f17bcf86cf123456789"),
    article: objectId("222f1f17bcf86cf123456789"),   
-   publishedDate: ISODate ("2022-02-15"),   
+   publishedDate: ISODate ("2022-04-20"),   
    nameAuthor: "Braulio Díez"
 }
 ```
@@ -322,11 +319,11 @@ Similarly, one course can have N lectures. Embedding all of the information abou
 Lectures document
 ```
 {
-    _id: 785,  
-    name: "Core Fundamentals of MongoDB"
+    _id: 10,
+    name: "Core Fundamentals of MongoDB",
    video: objectId("111f1f17bcf86cf123456789"),
    article: objectId("222f1f17bcf86cf123456789"),   
-   publishedDate: ISODate ("2022-02-15"),   
+   publishedDate: ISODate ("2022-04-20"),
    nameAuthor: "Braulio Díez",
    nameCourse: "The Complete Developers Guide to MongoDB"
 }
