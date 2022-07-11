@@ -50,15 +50,8 @@ For each node we store (ID, PathToNode).
 
 Approach looks similar to storing array of ancestors, but we store a path in form of string instead. Note that I intentionally use comma(,) as a path elements divider in order to keep regular expression simpler.
 
-
+We have modified the `CategoriesSimplified` and `CategoriesSubset` documents by adding the `pathToNode` field.
 ```
-// CoursesSimplified document
-{
-   _id: "786",
-   name: "The Complete Developers Guide to MongoDB",  
-   lastUpdated: ISODate ("2022-04-21")
-}
-
 // CategoriesSimplified document
 {
   "_id": "30"
@@ -81,11 +74,12 @@ Approach looks similar to storing array of ancestors, but we store a path in for
 As we see the courses is an array of `CoursesSimplified` document nested within `CategoriesSubset` document. The number of courses is finite and known size (it is not be a ever growing one). Initially 10 courses, it is estimated to be 100 in one year and maximum 1000 in five years.
 Another consideration is the size of the document limit of 16 MB. 
 
-![Elearning Portal Model Advanced](ELearningPortalModelAdvanced.JPG)
+![Elearning Portal Model Advanced](ElearningPortalModelAdvanced.JPG)
+
 
 To meet the second requirement:
-* we modify the current `Lectures` and `LecturesSimplified` document to add the isPrivate field.
-* we create the `Users` collection, `UsersSimplified`, `UserCourse` and `UsersCourses` documents.
+* we are modifying the current `Lectures` and `LecturesSimplified` document to add the isPrivate field.
+* we are creating the `Users` collection, `UsersSimplified`, `UserCourse` and `UsersCourses` documents.
 
 ```
 // Lectures document
