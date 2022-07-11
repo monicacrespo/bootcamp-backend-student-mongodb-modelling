@@ -50,7 +50,7 @@ For each node we store (ID, PathToNode).
 
 Approach looks similar to storing array of ancestors, but we store a path in form of string instead. Note that I intentionally use comma(,) as a path elements divider in order to keep regular expression simpler.
 
-
+```
 // CategoriesSimplified document
 {
   "_id": "30"
@@ -68,7 +68,8 @@ Approach looks similar to storing array of ancestors, but we store a path in for
     ...       
   ]
 }
+```
 
-![Elearning Portal Model Advanced](ELearningPortalModelAdvanced.JPG)
+![Elearning Portal Model Advanced](ElearningPortalModelAdvanced.JPG)
 
 To meet the second requirement we will create the Users collections.
