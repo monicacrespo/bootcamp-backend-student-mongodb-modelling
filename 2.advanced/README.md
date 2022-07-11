@@ -153,4 +153,4 @@ To meet the second requirement:
 If the most common access pattern is finding what courses are more popular, you could 
 * group them by course in `UsersCourses` document indexed by that course id.
 
-![Elearning Portal Model Advanced With Courses](ELearningPortalModelAdvancedWithCourses.JPG)
+![Elearning Portal Model Advanced With Courses](ElearningPortalModelAdvancedWithUsers.JPG)
