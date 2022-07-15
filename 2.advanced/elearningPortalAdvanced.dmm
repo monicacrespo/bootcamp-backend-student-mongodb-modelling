@@ -254,6 +254,20 @@
 					"list": false,
 					"enum": "",
 					"validate": ""
+				},
+				{
+					"id": "8c7a557f-56f1-435c-83c0-594d5ce7cf1e",
+					"name": "isPrivate",
+					"datatype": "bool",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
 				}
 			],
 			"relations": [],
@@ -749,6 +763,20 @@
 					"list": false,
 					"enum": "",
 					"validate": ""
+				},
+				{
+					"id": "c5b9d1cd-452f-4569-820f-6fe58fc92b2a",
+					"name": "isPrivate",
+					"datatype": "bool",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
 				}
 			],
 			"relations": [],
@@ -764,6 +792,111 @@
 			],
 			"indexes": [],
 			"embeddable": true,
+			"generate": true,
+			"generateCustomCode": true,
+			"internalColumnIdRef": "",
+			"validationLevel": "na",
+			"validationAction": "na",
+			"collation": "",
+			"others": ""
+		},
+		"e6fd0df6-40af-4d21-9980-ecc1f0cdfc83": {
+			"id": "e6fd0df6-40af-4d21-9980-ecc1f0cdfc83",
+			"visible": true,
+			"name": "UsersRegistered",
+			"desc": "",
+			"estimatedSize": "",
+			"cols": [
+				{
+					"id": "014a7e14-0aa8-4eb2-ab9b-92a11cc90348",
+					"name": "_id",
+					"datatype": "objectId",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": ""
+				},
+				{
+					"id": "2f8b0495-37a3-4057-950f-0fc6ae8a22e8",
+					"name": "name",
+					"datatype": "string",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
+				},
+				{
+					"id": "263869cb-e407-4ad8-8356-fcce71f7d54a",
+					"name": "userName",
+					"datatype": "string",
+					"param": "",
+					"pk": true,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
+				},
+				{
+					"id": "93dbdbed-f8ff-429f-b958-47b396f6a45a",
+					"name": "passwordHash",
+					"datatype": "string",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
+				},
+				{
+					"id": "0a43b69e-59a8-48b9-855d-a574b3f047a4",
+					"name": "courses",
+					"datatype": "9acfc17d-cda0-463f-bcb8-e518cbb12d10",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": true,
+					"enum": "",
+					"validate": ""
+				}
+			],
+			"relations": [],
+			"lines": [],
+			"keys": [
+				{
+					"id": "1c1a8f75-3a19-4ebe-9d56-aa4023f2e546",
+					"name": "Primary key",
+					"isPk": true,
+					"using": "na",
+					"cols": [
+						{
+							"id": "8ba0645f-9916-4c2b-8e12-44841556fcb7",
+							"colid": "014a7e14-0aa8-4eb2-ab9b-92a11cc90348"
+						},
+						{
+							"id": "0e72ad1c-b28b-47b1-860e-85e74c509b45",
+							"colid": "263869cb-e407-4ad8-8356-fcce71f7d54a"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"embeddable": false,
 			"generate": true,
 			"generateCustomCode": true,
 			"internalColumnIdRef": "",
@@ -806,7 +939,7 @@
 		"def_collation": "",
 		"def_others": "",
 		"writeFileParam": false,
-		"lastSaved": "Sun Jul 10 2022 22:59:54 GMT+0100 (British Summer Time)"
+		"lastSaved": "11/07/2022"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -824,10 +957,10 @@
 			"diagramItems": {
 				"d298247e-b931-4dfe-b31f-4e202d84004b": {
 					"referencedItemId": "d298247e-b931-4dfe-b31f-4e202d84004b",
-					"x": 625,
-					"y": 128,
-					"gHeight": 319,
-					"gWidth": 314,
+					"x": 630,
+					"y": 122,
+					"gHeight": 337,
+					"gWidth": 307,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": true,
@@ -836,8 +969,8 @@
 				"1fe61ee6-87c4-4a1f-8a1e-fa96a9f16821": {
 					"referencedItemId": "1fe61ee6-87c4-4a1f-8a1e-fa96a9f16821",
 					"x": 45,
-					"y": 388,
-					"gHeight": 171,
+					"y": 364,
+					"gHeight": 190,
 					"gWidth": 232,
 					"color": "#ffffff",
 					"background": "#8bc34a",
@@ -847,7 +980,7 @@
 				"62259ddb-a947-44bf-ab19-65f4ccbc51f4": {
 					"referencedItemId": "62259ddb-a947-44bf-ab19-65f4ccbc51f4",
 					"x": 45,
-					"y": 142,
+					"y": 118,
 					"gHeight": 81,
 					"gWidth": 166,
 					"color": "#ffffff",
@@ -858,7 +991,7 @@
 				"b0027557-bef3-462c-a565-85afb6152970": {
 					"referencedItemId": "b0027557-bef3-462c-a565-85afb6152970",
 					"x": 45,
-					"y": 41,
+					"y": 30,
 					"gHeight": 71,
 					"gWidth": 192,
 					"color": "#ffffff",
@@ -869,7 +1002,7 @@
 				"e746e143-0ca7-4f82-85db-dd047aff6300": {
 					"referencedItemId": "e746e143-0ca7-4f82-85db-dd047aff6300",
 					"x": 299,
-					"y": 153,
+					"y": 129,
 					"gHeight": 74,
 					"gWidth": 227,
 					"color": "#ffffff",
@@ -880,7 +1013,7 @@
 				"789a367a-26b0-4bec-813e-81cf9c5ab320": {
 					"referencedItemId": "789a367a-26b0-4bec-813e-81cf9c5ab320",
 					"x": 300,
-					"y": 244,
+					"y": 220,
 					"gHeight": 160,
 					"gWidth": 302,
 					"color": "#ffffff",
@@ -890,10 +1023,10 @@
 				},
 				"9acfc17d-cda0-463f-bcb8-e518cbb12d10": {
 					"referencedItemId": "9acfc17d-cda0-463f-bcb8-e518cbb12d10",
-					"x": 628,
+					"x": 636,
 					"y": 30,
-					"gHeight": 78,
-					"gWidth": 294,
+					"gHeight": 84,
+					"gWidth": 290,
 					"color": "#ffffff",
 					"background": "#8bc34a",
 					"resized": true,
@@ -902,7 +1035,7 @@
 				"35f66a0c-3b68-40a6-9632-dce9fe317ce2": {
 					"referencedItemId": "35f66a0c-3b68-40a6-9632-dce9fe317ce2",
 					"x": 306,
-					"y": 41,
+					"y": 30,
 					"gHeight": 82,
 					"gWidth": 239,
 					"color": "#ffffff",
@@ -912,12 +1045,23 @@
 				},
 				"1f8e6b54-297e-4f40-b40d-8693eaae25ed": {
 					"referencedItemId": "1f8e6b54-297e-4f40-b40d-8693eaae25ed",
-					"x": 45,
-					"y": 279,
-					"gHeight": 82,
+					"x": 47,
+					"y": 233,
+					"gHeight": 100,
 					"gWidth": 196,
 					"color": "#ffffff",
 					"background": "#8bc34a",
+					"resized": true,
+					"autoExpand": true
+				},
+				"e6fd0df6-40af-4d21-9980-ecc1f0cdfc83": {
+					"referencedItemId": "e6fd0df6-40af-4d21-9980-ecc1f0cdfc83",
+					"x": 305,
+					"y": 421,
+					"gHeight": 190,
+					"gWidth": 293,
+					"color": "#ffffff",
+					"background": "#03a9f4",
 					"resized": true,
 					"autoExpand": true
 				}
