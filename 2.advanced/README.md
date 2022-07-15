@@ -94,8 +94,7 @@ A category, may contain upto 1000s of courses (initially 10 courses, it is estim
 
 
 ## Add the capability to have public and private lectures and users - Approach 1
-One approach to design the Many-to-Many relationship between courses and users would be to store the users in a new `users` collection and
-keep a pair of each course taken by each user as an array of sub-documents called as `UserCourse` in a new `UsersCourses` collection.
+One approach to design the Many-to-Many relationship between courses and users would be to store the users in a new `users` collection and keep a pair of each course taken by each user as an array of sub-documents called as `UserCourse` in a new `UsersCourses` collection.
 
 These are the changes to the model:
 * Modify the current `Lectures` and `LecturesSimplified` document to add the isPrivate field.
@@ -183,7 +182,7 @@ If the most common access pattern is finding what courses are more popular, you 
 
 
 ## Add the capability to have public and private lectures and users - Approach 2
-Another approach to design the Many-to-Many relationship between courses and users would be to store the users in `Users` collection and keep the course details embedded with each user as an array of sub-documents called as courses.
+Another approach to design the Many-to-Many relationship between courses and users would be to store the users in `Users` collection and keep the course details embedded with each user as an array of `CoursesSimplified` sub-documents called as courses.
 
 ```
 / Users collection
@@ -193,7 +192,7 @@ Another approach to design the Many-to-Many relationship between courses and use
    userName: "pedro.Jimenez@hotmail.com", 
    passwordHash: "d131dd02c5e6eec4693d",
    plan: "Basic" // by default
-   course: [
+   courses: [
      { 
       "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") 
      },
@@ -213,4 +212,4 @@ Query all users enrolled into a particular course: db.Users.find( { "courses.nam
 
 ## Design model to have public and private lectures and users - Approach 2
 
-![Elearning Portal Model Advanced With Courses - Approach2](ElearningPortalModelAdvancedWithUsersApproach2.JPG)
+![Elearning Portal Model Advanced With Courses - Approach 2](ElearningPortalModelAdvancedWithUsersApproach2.JPG)

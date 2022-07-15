@@ -803,7 +803,7 @@
 		"e6fd0df6-40af-4d21-9980-ecc1f0cdfc83": {
 			"id": "e6fd0df6-40af-4d21-9980-ecc1f0cdfc83",
 			"visible": true,
-			"name": "UsersRegistered",
+			"name": "Users",
 			"desc": "",
 			"estimatedSize": "",
 			"cols": [
@@ -939,7 +939,7 @@
 		"def_collation": "",
 		"def_others": "",
 		"writeFileParam": false,
-		"lastSaved": "11/07/2022"
+		"lastSaved": "Fri Jul 15 2022 18:29:29 GMT+0100 (British Summer Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -959,8 +959,8 @@
 					"referencedItemId": "d298247e-b931-4dfe-b31f-4e202d84004b",
 					"x": 630,
 					"y": 122,
-					"gHeight": 337,
-					"gWidth": 307,
+					"gHeight": 346,
+					"gWidth": 329,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": true,
