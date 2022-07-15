@@ -3,6 +3,7 @@
 Add to the basic model the following requeriments:
 
 1. Add the following structured hierarchical/classified category data:
+   ```
    Front End >> React
    Front End >> React >> Testing
    Front End >> Angular
@@ -11,11 +12,11 @@ Add to the basic model the following requeriments:
    Backend >> nodejs
    Backend >> nodejs >> Express
    Backend >> mongo
-
+   ```
 2. There might be public and private lectures, that means:
-   A course can be 100% public.
-   A course can have an initial part 100% public, and another only for subscriptors. 
-   This implies there will be registered users and subscriptions.
+   * A course can be 100% public.
+   * A course can have an initial part 100% public, and another only for subscriptors. 
+   * This implies there will be registered users and subscriptions.
 
 
 ## Solution structure 
@@ -30,9 +31,10 @@ Add to the basic model the following requeriments:
 │   README.md
 ```
 
+## Add an structured hierarchical category
 MongoDB is a document based database. Each record in a collection is a document, and every document should be self-contained (it should contain all information that you need inside it).
 
-To meet the first requirement we will use the Tree structure using Materialized Path. 
+To meet the first requirement to have an structured hierarchical category, we will use the `Tree structure using Materialized Path`. 
 
 For each node we store (ID, PathToNode).
 
@@ -85,15 +87,20 @@ Note, the course _id and name are stored in both documents (`CoursesSimplified` 
 
 You can just store the course _id field in the courses array, of the `CategoriesSubset` document; this is the case where you have course name field changes often. The queries will use Aggregation $lookup (a "join" operation) to get the course and from the courses collection.
 
-The number of courses is finite and known size (it is not be a ever growing one). Initially 10 courses, it is estimated to be 100 in one year and maximum 1000 in five years.
-Another consideration is the size of the document limit of 16 MB. 
+A category, may contain upto 1000s of courses (initially 10 courses, it is estimated to be 100 in one year and maximum 1000 in five years). An ObjectId being 12 bytes long, in this case will grow a collection to a size of merely 12000 bytes which is way lesser than 16000000 bytes (16MB). You are still left with a lot of space for the rest of category fields. So no need to worry about hitting the cap of 16MB.
 
+## Design model to add an structured hierarchical category
 ![Elearning Portal Model Advanced](ElearningPortalModelAdvanced.JPG)
 
 
-To meet the second requirement:
-* we are modifying the current `Lectures` and `LecturesSimplified` document to add the isPrivate field.
-* we are creating the `Users`  and `UsersCourses` collections, and `UsersSimplified` and `UserCourse` documents.
+## Add the capability to have public and private lectures and users - Approach 1
+One approach to design the Many-to-Many relationship between courses and users would be to store the users in a new `users` collection and
+keep a pair of each course taken by each user as an array of sub-documents called as `UserCourse` in a new `UsersCourses` collection.
+
+These are the changes to the model:
+* Modify the current `Lectures` and `LecturesSimplified` document to add the isPrivate field.
+* Create the `Users` and `UsersCourses` collections, and `UsersSimplified` and `UserCourse` documents.
+
 
 ```
 // Lectures document
@@ -146,6 +153,10 @@ To meet the second requirement:
 {
    user: { _id: 1, userName: "pedro.Jimenez@hotmail.com" } ,
    course: { "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") }
+},
+{
+   user: { _id: 2, userName: "monica.suarez.1@gmail.com" } ,
+   course: { "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") }
 }
 
 // UsersCourses collection
@@ -167,18 +178,21 @@ To meet the second requirement:
 If the most common access pattern is finding what courses are more popular, you could 
 * group them by course in `UsersCourses` document indexed by that course id.
 
+## Design model to have public and private lectures and users - Approach 1
 ![Elearning Portal Model Advanced With Courses - Approach1](ElearningPortalModelAdvancedWithUsersApproach1.JPG)
 
 
-Another approach to design the Many-to-Many relationship between courses and users would be to store only the user registered in `UsersRegistered` collection and to have the course details embedded with each registered user as an array of sub-documents called as courses.
+## Add the capability to have public and private lectures and users - Approach 2
+Another approach to design the Many-to-Many relationship between courses and users would be to store the users in `Users` collection and keep the course details embedded with each user as an array of sub-documents called as courses.
 
 ```
-/ UsersRegistered collection
+/ Users collection
 {
    _id: "1",
    name: "Pedro Jimenez",  
    userName: "pedro.Jimenez@hotmail.com", 
    passwordHash: "d131dd02c5e6eec4693d",
+   plan: "Basic" // by default
    course: [
      { 
       "_id": 786, "name": "The Complete Developers Guide to MongoDB", lastUpdated: ISODate ("2022-04-21") 
@@ -190,11 +204,13 @@ Another approach to design the Many-to-Many relationship between courses and use
 }
 ```
 
-An user, may have been registered to upto 1000s of courses (maximum 1000 in five years). An ObjectId being 12 bytes long, in this case will grow a collection to a size of merely 12000 bytes which is way lesser than 16000000 bytes (16MB). You are still left with a lot of space for the rest of user fields. So no need to worry about hitting the cap of 16MB.
+An user, may take upto 1000s of courses (maximum 1000 in five years). An ObjectId being 12 bytes long, in this case will grow a collection to a size of merely 12000 bytes which is way lesser than 16000000 bytes (16MB). You are still left with a lot of space for the rest of user fields. So no need to worry about hitting the cap of 16MB.
 
 
-Query all courses a user is enrolled into, for example: db.UsersRegistered.find( { username: "pedro.Jimenez@hotmail.com" } ). This will return one user document with the matching name and all the courses (the array field). See https://www.mongodb.com/docs/manual/reference/method/db.collection.find/
+Query all courses a user is enrolled into, for example: db.Users.find( { username: "pedro.Jimenez@hotmail.com" } ). This will return one user document with the matching name and all the courses (the array field). See https://www.mongodb.com/docs/manual/reference/method/db.collection.find/
 
-Query all users enrolled into a particular course: db.UsersRegistered.find( { "courses.name": "The Complete Developers Guide to MongoDB" } ). This will return all the users documents who have the course name matching the criteria "The Complete Developers Guide to MongoDB". See https://www.mongodb.com/docs/manual/tutorial/query-array-of-documents/
+Query all users enrolled into a particular course: db.Users.find( { "courses.name": "The Complete Developers Guide to MongoDB" } ). This will return all the users documents who have the course name matching the criteria "The Complete Developers Guide to MongoDB". See https://www.mongodb.com/docs/manual/tutorial/query-array-of-documents/
+
+## Design model to have public and private lectures and users - Approach 2
 
 ![Elearning Portal Model Advanced With Courses - Approach2](ElearningPortalModelAdvancedWithUsersApproach2.JPG)
