@@ -861,7 +861,21 @@
 					"validate": ""
 				},
 				{
-					"id": "0a43b69e-59a8-48b9-855d-a574b3f047a4",
+					"id": "3930020d-542b-4992-9f4f-2aad01f0e990",
+					"name": "plan",
+					"datatype": "string",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"list": false,
+					"enum": "",
+					"validate": ""
+				},
+				{
+					"id": "d91f8b8e-0d59-4776-ac75-d308dc5ed1ff",
 					"name": "courses",
 					"datatype": "9acfc17d-cda0-463f-bcb8-e518cbb12d10",
 					"param": "",
@@ -939,7 +953,7 @@
 		"def_collation": "",
 		"def_others": "",
 		"writeFileParam": false,
-		"lastSaved": "Fri Jul 15 2022 18:29:29 GMT+0100 (British Summer Time)"
+		"lastSaved": "Fri Jul 15 2022 18:29:53 GMT+0100 (British Summer Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -959,8 +973,8 @@
 					"referencedItemId": "d298247e-b931-4dfe-b31f-4e202d84004b",
 					"x": 630,
 					"y": 122,
-					"gHeight": 346,
-					"gWidth": 329,
+					"gHeight": 333,
+					"gWidth": 458,
 					"color": "#ffffff",
 					"background": "#03a9f4",
 					"resized": true,
